@@ -4,9 +4,9 @@
 ## Part 1
 
 #### commands
-- django-admin startproject [project name] 
-- python manage.py runserver
-- python manage.py startapp [app name]
+- `django-admin startproject [project name] `
+- `python manage.py runserver`
+- `python manage.py startapp [app name]`
 
 #### functions
 ```python
@@ -27,17 +27,18 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 ```
-- include() : url 연결, admin.site.urls 제외하고는 전부 include 사용
-- path(route,view,kwargs,name)
+- `include()` : url 연결, admin.site.urls 제외하고는 전부 include 사용
+- `path(route,view,kwargs,name)`
 
 ---
 ## Part 2
 
 #### commands
-- python manage.py makemigrations [app name]
-- python manage.py sqlmigrate [app name] [index]
-- python manage.py migrate
-- python manage.py shell
+- `python manage.py makemigrations [app name]` # 변경사항에 대한 migration 만들기
+- `python manage.py sqlmigrate [app name] [index]`
+- `python manage.py migrate` # 변경사항 db에 적용
+- `python manage.py shell`
+- `python manage.py createsuperuser`
 
 #### shell commands
 ```python
@@ -59,3 +60,19 @@ q.choice_set.all())
 c.delete() # choice 제거
 
 ```
+## Part 3
+
+- mysite/urls.py -> polls/urls.py
+- polls/urls.py : `urlpatterns =[path("[url주소]",views.[뷰이름],name=[url이름])]`
+- `"<[데이터타입]:[뷰의 매개변수 이름]>"` 으로 뷰에서 값을 넘겨받아 사용할 수 있다. 
+```python
+# 예시
+def vote(request,question_id):
+    return HttpResponse("You are voting on question %s"%question_id)
+
+urlpatterns = [
+    path('<int:question_id>/vote/', views.vote, name='vote'),
+]
+```
+- 'render(request, 'polls/index.html', context)'  polls/index.html에 context 전달
+
