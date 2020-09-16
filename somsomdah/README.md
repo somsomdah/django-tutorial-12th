@@ -74,5 +74,19 @@ urlpatterns = [
     path('<int:question_id>/vote/', views.vote, name='vote'),
 ]
 ```
-- 'render(request, 'polls/index.html', context)'  polls/index.html에 context 전달
+- `render(request, 'polls/index.html', context)`  polls/index.html에 context 전달
+- `get_object_or_404` 모델로부터 객체를 가져오거나 404를 띄움
 
+## Part 4
+- request.post
+```python
+selected_choice = question.choice_set.get(pk=request.POST['choice']) 
+#name=choice인 요소에서 선택된 것 -> pk로 쓰겠다
+```
+- generic view
+```python
+class DetailView(generic.DetailView):
+    model = Question
+    template_name = 'polls/detail.html'
+# path('<int:pk>/', views.DetailView.as_view(), name='detail'),
+```
